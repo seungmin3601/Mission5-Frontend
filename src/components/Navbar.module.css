@@ -1,0 +1,29 @@
+/* Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: white;
+  margin: 0 auto;
+  color: black;
+  width: 86.8%;
+  height: 61px;
+  font-size: 18px;
+  font-family: "Inter", sans-serif;
+}
+
+.logo {
+  width: 220px;
+  height: 61px;
+}
+
+.nav_links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links li {
+  cursor: pointer;
+}
