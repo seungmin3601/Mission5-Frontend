@@ -1,0 +1,108 @@
+.lineBelowNavbar {
+  width: 100%;
+  height: 1.5px;
+  background-color: lightgray;
+}
+
+.directory {
+  margin-left: 60px;
+}
+
+.name {
+  margin-left: 60px;
+  margin-top: 100px;
+}
+
+.imagesContainer {
+  display: flex;
+  gap: 30px;
+}
+
+.bigImage {
+  margin-left: 60px;
+  width: 600px;
+}
+
+.rightImages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 30px;
+}
+
+.smallImage {
+  width: 322px;
+}
+
+.descriptionContainer {
+  border: 1px solid black;
+  margin-left: 60px;
+  margin-top: 45px;
+  height: 1000px;
+  width: 90.5%;
+}
+
+.description1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rent {
+  color: #828282;
+}
+
+.rooms {
+  display: flex;
+  align-items: center; /* Align items vertically centered */
+}
+
+.icon {
+  width: 18px;
+  height: auto; /* Automatically adjust height to maintain aspect ratio */
+}
+
+.roomNumber {
+  margin-left: 8px;
+  margin-right: 8px;
+  color: #828282;
+  font-weight: bold;
+}
+
+.leftDescription1 {
+  margin-left: 10px;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.orangeButton {
+  width: 250px;
+  background-color: #fd8b8d;
+  border: none;
+  height: 40px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+}
+
+.redButton {
+  width: 250px;
+  color: white;
+  border: none;
+  background-color: #e63335;
+  height: 40px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.description2 {
+  border: 1px solid cyan;
+  width: 65%;
+  margin: 0 auto;
+}
+
+.availableBond {
+  display: flex;
+}

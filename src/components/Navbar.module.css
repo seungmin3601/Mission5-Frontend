@@ -1,5 +1,9 @@
 /* Navbar.css */
-.navbar {
+.mainbar {
+  width: 100%;
+}
+
+.navbars {
   display: flex;
   justify-content: space-between;
   align-items: center;
