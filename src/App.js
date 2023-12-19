@@ -4,15 +4,16 @@ import ListedProperties from "./pages/ListedProperties/ListedProperties";
 import PropertyInformation from "./pages/PropertyInformation/PropertyInformation";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+import "leaflet/dist/leaflet.css";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="listed-properties" element={<ListedProperties />} />
+          <Route path="/listed-properties" element={<ListedProperties />} />
           <Route
-            path="property-information/:propertyId"
+            path="/property-information/:propertyId"
             element={<PropertyInformation />}
           />
         </Routes>

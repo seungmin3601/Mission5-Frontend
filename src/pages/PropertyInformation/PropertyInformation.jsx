@@ -9,6 +9,7 @@ export default function PropertyInformation() {
   const { propertyId } = useParams();
   const [properties, setProperties] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [suggestedProperties, setSuggestedProperties] = useState([]);
 
   useEffect(() => {
     // Fetch properties based on the search term
@@ -23,13 +24,22 @@ export default function PropertyInformation() {
     (property) => property._id === propertyId
   );
 
-  // Get the first two properties for suggestion
-  const suggestedProperties = properties.slice(0, 2);
+  // Shuffle the properties array and get the first two as suggested properties
+  useEffect(() => {
+    const shuffledProperties = [...properties].sort(() => Math.random() - 0.5);
+    const firstTwoProperties = shuffledProperties.slice(0, 2);
+    setSuggestedProperties(firstTwoProperties);
+  }, [propertyId, properties]);
 
   const handleSearch = () => {
     // You can perform actions related to searching here, e.g., updating the component state, fetching data, etc.
     console.log("Searching for:", searchTerm);
   };
+
+  // Scroll to the top when the component mounts or propertyId changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [propertyId]);
 
   return (
     <div className={styles.main}>

@@ -1,9 +1,9 @@
-// Aucklandmap.jsx
 import React, { useEffect } from "react";
 import * as atlas from "azure-maps-control";
 import "azure-maps-control/dist/atlas.min.css";
+import styles from "./AucklandMap.module.css"; // Import the CSS file
 
-export default function AucklandMap() {
+export default function AucklandMap({ properties }) {
   useEffect(() => {
     // Initialize Azure Maps control
     const map = new atlas.Map("mapContainer", {
@@ -15,13 +15,23 @@ export default function AucklandMap() {
       },
     });
 
+    // Add pushpins for each property
+    properties.forEach((property) => {
+      const pin = new atlas.HtmlMarker({
+        position: [property.coordinate2, property.coordinate1], // Note the order of coordinates
+        htmlContent: `<div class="${styles.pin}"></div>`,
+      });
+
+      map.markers.add(pin);
+    });
+
     // Add any additional map customization or data layers here
 
     return () => {
       // Clean up resources when the component is unmounted
       map.dispose();
     };
-  }, []);
+  }, [properties]); // Add properties as a dependency to re-render when properties change
 
   const mapContainerStyle = {
     height: "600px", // Set the desired height

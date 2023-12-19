@@ -1,4 +1,3 @@
-// ListedProperties.jsx
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ListedProperties.module.css";
@@ -36,7 +35,7 @@ export default function ListedProperties() {
       </p>
       <Searchbar className={styles.searchbar} />
       <h2 className={styles.auckland}>Auckland, New Zealand Homes for Rent</h2>
-      <AucklandMap />
+      <AucklandMap properties={properties} />
       <div className={styles.propertyContainer}>
         <div className={styles.propertyList}>
           {getCurrentPageProperties().map((property) => (
