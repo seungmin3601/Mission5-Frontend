@@ -1,25 +1,35 @@
-// PropertyInformation.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./PropertyInformation.module.css";
 import Navbar from "../../components/Navbar";
+import SmallPropertyCard from "./SmallPropertyCard";
+import SmallPropertyCardStyles from "./SmallPropertyCard.module.css";
 
 export default function PropertyInformation() {
   const { propertyId } = useParams();
   const [properties, setProperties] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    // Fetch all properties from the backend
-    fetch("http://localhost:5001/")
+    // Fetch properties based on the search term
+    fetch(`http://localhost:5001/?search=${searchTerm}`)
       .then((response) => response.json())
       .then((data) => setProperties(data))
       .catch((error) => console.error("Error fetching properties:", error));
-  }, []);
+  }, [searchTerm]);
 
   // Find the property that matches the selected ID
   const selectedProperty = properties.find(
     (property) => property._id === propertyId
   );
+
+  // Get the first two properties for suggestion
+  const suggestedProperties = properties.slice(0, 2);
+
+  const handleSearch = () => {
+    // You can perform actions related to searching here, e.g., updating the component state, fetching data, etc.
+    console.log("Searching for:", searchTerm);
+  };
 
   return (
     <div className={styles.main}>
@@ -33,7 +43,6 @@ export default function PropertyInformation() {
           <>
             <h2 className={styles.name}>{selectedProperty.name}</h2>
             <div className={styles.imagesContainer}>
-              {/* Provide the correct path to the image */}
               <img
                 src={`/${selectedProperty.image1}`}
                 alt={selectedProperty.name}
@@ -72,18 +81,24 @@ export default function PropertyInformation() {
                     <img
                       src="/images/Bedroom Icon.png"
                       className={styles.icon}
-                    ></img>
+                      alt="Bedroom Icon"
+                    />
                     <p className={styles.roomNumber}>
                       {selectedProperty.bedrooms}
                     </p>
                     <img
                       src="/images/Bathroom.png"
                       className={styles.icon}
-                    ></img>
+                      alt="Bathroom Icon"
+                    />
                     <p className={styles.roomNumber}>
                       {selectedProperty.shower}
                     </p>
-                    <img src="/images/Car.png" className={styles.icon}></img>
+                    <img
+                      src="/images/Car.png"
+                      className={styles.icon}
+                      alt="Car Icon"
+                    />
                     <p className={styles.roomNumber}>
                       {selectedProperty.carparks}
                     </p>
@@ -99,8 +114,125 @@ export default function PropertyInformation() {
               </div>
               <div className={styles.description2}>
                 <div className={styles.availableBond}>
-                  <p>Available from: {selectedProperty.availabilityDate}</p>
-                  <p>Bond: ${selectedProperty.bond}</p>
+                  <p>
+                    <span>
+                      Available from:{" "}
+                      <span style={{ fontWeight: "bold" }}>
+                        {selectedProperty.availabilityDate}
+                      </span>
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      Bond:{" "}
+                      <span style={{ fontWeight: "bold" }}>
+                        ${selectedProperty.bond}
+                      </span>
+                    </span>
+                  </p>
+                </div>
+                <div className={styles.propertyFeatures}>
+                  <div className={styles.featuresList}>
+                    {selectedProperty.features
+                      .split(",")
+                      .map((feature, index) => (
+                        <div key={index} className={styles.featureItem}>
+                          <img
+                            src="/images/Tick.png"
+                            className={styles.tickIcon}
+                            alt="Tick Icon"
+                          />
+                          {feature.trim()}
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              </div>
+              <p className={styles.propertyDescription}>
+                {selectedProperty.description}
+              </p>
+              <div className={styles.belowDescription}>
+                <div className={styles.threeItems}>
+                  Council Records
+                  <img
+                    src="/images/Document.png"
+                    className={styles.threeIcons}
+                    alt="Document Icon"
+                  />
+                </div>
+                <div className={styles.threeItems}>
+                  Property History
+                  <img
+                    src="/images/History.png"
+                    className={styles.threeIcons}
+                    alt="History Icon"
+                  />
+                </div>
+                <div className={styles.threeItems}>
+                  Owner Updated Info
+                  <img
+                    src="/images/Info.png"
+                    className={styles.threeIcons}
+                    alt="Info Icon"
+                  />
+                </div>
+              </div>
+              <div className={styles.map}>
+                <h3 className={styles.underline}>Map:</h3>
+                <div className={styles.mapContainer}>
+                  <div className={styles.block}>
+                    <div className={styles.content}>
+                      <img src="/images/Location.png" alt="Location icon" />
+                      <p>Location</p>
+                    </div>
+                  </div>
+                  <div className={styles.separator}></div>
+                  <div className={styles.block}>
+                    <div className={styles.content}>
+                      <img src="/images/School.png" alt="School icon" />
+                      <p>School</p>
+                    </div>
+                  </div>
+                  <div className={styles.separator}></div>
+                  <div className={styles.block}>
+                    <div className={styles.content}>
+                      <img src="/images/Transport.png" alt="Transport icon" />
+                      <p>Commute</p>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.bottomContainer}>
+                  <div className={styles.leftBottom}>
+                    <h4 className={styles.bottomText}>You might also like</h4>
+                    <div
+                      className={SmallPropertyCardStyles.suggestedProperties}
+                    >
+                      {suggestedProperties.map((property) => (
+                        <SmallPropertyCard
+                          key={property._id}
+                          property={property}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div className={styles.rightBottom}>
+                    <h4 className={styles.bottomText}>Search again</h4>
+                    <p>
+                      Enter a town, city, region or postcode into the search box
+                      and we’ll show properties in or around that area
+                    </p>
+                    <div className={styles.searchBarContainer}>
+                      <div className={styles.searchBar}>
+                        <input
+                          type="text"
+                          placeholder="Start typing..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <button onClick={handleSearch}>Search</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
