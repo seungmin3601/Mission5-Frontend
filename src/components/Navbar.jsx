@@ -1,3 +1,5 @@
+// Navbar.jsx
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
@@ -36,7 +38,9 @@ const Navbar = ({ className }) => {
             &#x2630; {/* Unicode character for three horizontal lines */}
           </button>
         )}
-        <ul className={`${styles.nav_links} ${isNavActive ? "active" : ""}`}>
+        <ul
+          className={`${styles.nav_links} ${isNavActive ? styles.active : ""}`}
+        >
           <li>Home</li>
           <li>Property Owners</li>
           <li>Tenants</li>

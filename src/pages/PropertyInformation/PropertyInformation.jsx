@@ -4,12 +4,27 @@ import styles from "./PropertyInformation.module.css";
 import Navbar from "../../components/Navbar";
 import SmallPropertyCard from "./SmallPropertyCard";
 import SmallPropertyCardStyles from "./SmallPropertyCard.module.css";
+import MobilePropertyCard from "./MobilePropertyCard";
+import MobilePropertyCardStyles from "./MobilePropertyCard.module.css";
 
 export default function PropertyInformation() {
   const { propertyId } = useParams();
   const [properties, setProperties] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestedProperties, setSuggestedProperties] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 390);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 390);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     // Fetch properties based on the search term
@@ -186,63 +201,134 @@ export default function PropertyInformation() {
                     alt="Info Icon"
                   />
                 </div>
+                {/* Conditionally render the Annual Expenses section for mobile */}
+                {isMobile && (
+                  <div className={styles.threeItems}>
+                    Annual Expenses
+                    <img
+                      src="/images/Money.png"
+                      className={styles.threeIcons}
+                      alt="Money Icon"
+                    />
+                  </div>
+                )}
               </div>
               <div className={styles.map}>
-                <h3 className={styles.underline}>Map:</h3>
+                <p className={styles.underline}>Map:</p>
                 <div className={styles.mapContainer}>
                   <div className={styles.block}>
                     <div className={styles.content}>
-                      <img src="/images/Location.png" alt="Location icon" />
+                      <img
+                        className={styles.contentImg}
+                        src="/images/Location.png"
+                        alt="Location icon"
+                      />
                       <p>Location</p>
                     </div>
                   </div>
                   <div className={styles.separator}></div>
                   <div className={styles.block}>
                     <div className={styles.content}>
-                      <img src="/images/School.png" alt="School icon" />
+                      <img
+                        className={styles.contentImg}
+                        src="/images/School.png"
+                        alt="School icon"
+                      />
                       <p>School</p>
                     </div>
                   </div>
                   <div className={styles.separator}></div>
                   <div className={styles.block}>
                     <div className={styles.content}>
-                      <img src="/images/Transport.png" alt="Transport icon" />
+                      <img
+                        className={styles.contentImg}
+                        src="/images/Transport.png"
+                        alt="Transport icon"
+                      />
                       <p>Commute</p>
                     </div>
                   </div>
                 </div>
                 <div className={styles.bottomContainer}>
-                  <div className={styles.leftBottom}>
-                    <h4 className={styles.bottomText}>You might also like</h4>
-                    <div
-                      className={SmallPropertyCardStyles.suggestedProperties}
-                    >
-                      {suggestedProperties.map((property) => (
-                        <SmallPropertyCard
-                          key={property._id}
-                          property={property}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <div className={styles.rightBottom}>
-                    <h4 className={styles.bottomText}>Search again</h4>
-                    <p>
-                      Enter a town, city, region or postcode into the search box
-                      and we’ll show properties in or around that area
-                    </p>
-                    <div className={styles.searchBarContainer}>
-                      <div className={styles.searchBar}>
-                        <input
-                          type="text"
-                          placeholder="Start typing..."
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button onClick={handleSearch}>Search</button>
+                  {isMobile ? (
+                    <>
+                      <div className={styles.rightBottom}>
+                        <h4 className={styles.bottomText}>Search again</h4>
+                        <p>
+                          Enter a town, city, region or postcode into the search
+                          box and we’ll show properties in or around that area
+                        </p>
+                        <div className={styles.searchBarContainer}>
+                          <div className={styles.searchBar}>
+                            <input
+                              type="text"
+                              placeholder="Start typing..."
+                              value={searchTerm}
+                              onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            <button onClick={handleSearch}>Search</button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                      <div className={styles.leftBottom}>
+                        <h4 className={styles.bottomText}>
+                          You might also like
+                        </h4>
+                        <div className={styles.mobileCard}>
+                          <div
+                            className={
+                              MobilePropertyCardStyles.suggestedProperties
+                            }
+                          >
+                            {suggestedProperties.map((property) => (
+                              <MobilePropertyCard
+                                key={property._id}
+                                property={property}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className={styles.leftBottom}>
+                        <h4 className={styles.bottomText}>
+                          You might also like
+                        </h4>
+                        <div
+                          className={
+                            SmallPropertyCardStyles.suggestedProperties
+                          }
+                        >
+                          {suggestedProperties.map((property) => (
+                            <SmallPropertyCard
+                              key={property._id}
+                              property={property}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <div className={styles.rightBottom}>
+                        <h4 className={styles.bottomText}>Search again</h4>
+                        <p>
+                          Enter a town, city, region or postcode into the search
+                          box and we’ll show properties in or around that area
+                        </p>
+                        <div className={styles.searchBarContainer}>
+                          <div className={styles.searchBar}>
+                            <input
+                              type="text"
+                              placeholder="Start typing..."
+                              value={searchTerm}
+                              onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            <button onClick={handleSearch}>Search</button>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

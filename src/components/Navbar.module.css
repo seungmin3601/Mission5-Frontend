@@ -1,5 +1,6 @@
-/* Navbar.css */
-.mainbar {
+/* Navbar.module.css */
+
+.mainBar {
   width: 100%;
 }
 
@@ -28,14 +29,15 @@
   gap: 30px;
 }
 
-.nav-links li {
+.nav_links li {
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .navbar {
-    display: flex;
-    align-items: flex-start;
+@media (max-width: 390px) {
+  .navbars {
+    flex-direction: row; /* Change flex direction to row */
+    justify-content: space-between; /* Add this to push the logo and button to opposite ends */
+    align-items: center;
     height: auto;
     margin-top: 40px;
     padding-right: 30px;
@@ -47,16 +49,6 @@
     margin-bottom: 1rem;
   }
 
-  .nav_links {
-    flex-direction: column;
-    gap: 10px;
-    display: none; /* Hide the list by default */
-  }
-
-  .nav_links.active {
-    display: flex; /* Show the list when active class is applied */
-  }
-
   .toggleButton {
     margin-top: 20px;
     display: block;
@@ -65,5 +57,21 @@
     cursor: pointer;
     font-size: 24px;
     color: black;
+  }
+
+  .nav_links {
+    flex-direction: column;
+    gap: 10px;
+    display: none;
+    position: absolute;
+    top: 61px;
+    right: 0; /* Align the list to the right */
+    background-color: white;
+    z-index: 1;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav_links.active {
+    display: flex;
   }
 }

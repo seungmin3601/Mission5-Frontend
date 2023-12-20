@@ -1,3 +1,5 @@
+// ListedProperties.jsx
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ListedProperties.module.css";
@@ -5,11 +7,13 @@ import Navbar from "../../components/Navbar";
 import Searchbar from "../../components/Searchbar";
 import AucklandMap from "./AucklandMap";
 import PropertyCard from "./PropertyCard";
+import MobilePropertyCard from "./MobilePropertyCard"; // Import the mobile version
 
 export default function ListedProperties() {
   const [properties, setProperties] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
+  const isMobile = window.innerWidth <= 390; // Check if the screen width is mobile
 
   useEffect(() => {
     // Fetch properties from the backend
@@ -30,17 +34,25 @@ export default function ListedProperties() {
     <div className={styles.main}>
       <Navbar />
       <div className={styles.lineBelowNavbar}></div>
-      <p className={styles.directory}>
-        Home &gt; Find a Rental &gt; Auckland Region
-      </p>
+      {/* Remove the directory for mobile */}
+      {!isMobile && (
+        <p className={styles.directory}>
+          Home &gt; Find a Rental &gt; Auckland Region
+        </p>
+      )}
       <Searchbar className={styles.searchbar} />
       <h2 className={styles.auckland}>Auckland, New Zealand Homes for Rent</h2>
       <AucklandMap properties={properties} />
       <div className={styles.propertyContainer}>
         <div className={styles.propertyList}>
-          {getCurrentPageProperties().map((property) => (
-            <PropertyCard key={property._id} property={property} />
-          ))}
+          {getCurrentPageProperties().map((property) =>
+            // Conditionally render the appropriate card based on screen width
+            isMobile ? (
+              <MobilePropertyCard key={property._id} property={property} />
+            ) : (
+              <PropertyCard key={property._id} property={property} />
+            )
+          )}
         </div>
       </div>
       <div className={styles.pagination}>

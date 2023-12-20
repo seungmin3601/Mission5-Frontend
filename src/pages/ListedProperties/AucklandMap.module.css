@@ -1,4 +1,5 @@
-/* Add this to your CSS file */
+/* AucklandMap.module.css */
+
 .pin {
   width: 30px;
   height: 30px;
@@ -15,4 +16,23 @@
   height: 15px;
   background-color: #fff;
   border-radius: 50%;
+}
+
+.mobileMapContainer {
+  height: 600px;
+  width: 91%;
+  margin: 0 auto;
+  margin-left: 60px;
+  margin-top: 40px;
+}
+
+/* Mobile styles using media query */
+@media (max-width: 390px) {
+  .mobileMapContainer {
+    height: 300px;
+    width: 300px;
+    margin: 0 auto;
+    margin-left: 60px;
+    margin-top: 20px;
+  }
 }

@@ -1,3 +1,5 @@
+/* Searchbar.module.css */
+
 .container {
   width: 1312px;
   height: 55px;
@@ -27,6 +29,7 @@
   font-size: 20px;
   font-weight: bold;
   margin-right: 10px;
+  padding: 0;
 }
 
 .textButton {
@@ -36,4 +39,30 @@
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 2px;
+}
+
+.mobileSearchButton {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+/* New styles for mobile version within @media query */
+@media (max-width: 390px) {
+  .container {
+    width: 80%;
+    justify-content: space-between;
+  }
+
+  .filterButton {
+    order: 2;
+  }
+
+  .textButton {
+    display: none;
+  }
+
+  .searchButton {
+    order: 3;
+  }
 }
