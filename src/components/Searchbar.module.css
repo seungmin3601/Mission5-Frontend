@@ -38,7 +38,13 @@
   color: #828282;
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 2px;
+}
+
+/* Ensure the hover effect for filterButton */
+.filterButton:hover,
+.textButton:hover {
+  cursor: pointer;
+  text-decoration: underline; /* Optional: Provide a visual indication of hover */
 }
 
 .mobileSearchButton {

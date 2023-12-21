@@ -1,5 +1,3 @@
-// ListedProperties.jsx
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ListedProperties.module.css";
@@ -7,13 +5,19 @@ import Navbar from "../../components/Navbar";
 import Searchbar from "../../components/Searchbar";
 import AucklandMap from "./AucklandMap";
 import PropertyCard from "./PropertyCard";
-import MobilePropertyCard from "./MobilePropertyCard"; // Import the mobile version
+import MobilePropertyCard from "./MobilePropertyCard";
+import Filter from "../../components/Filter";
 
 export default function ListedProperties() {
   const [properties, setProperties] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
   const isMobile = window.innerWidth <= 390; // Check if the screen width is mobile
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+
+  const toggleFilter = () => {
+    setIsFilterVisible(!isFilterVisible);
+  };
 
   useEffect(() => {
     // Fetch properties from the backend
@@ -40,7 +44,7 @@ export default function ListedProperties() {
           Home &gt; Find a Rental &gt; Auckland Region
         </p>
       )}
-      <Searchbar className={styles.searchbar} />
+      <Searchbar className={styles.searchbar} onFilterClick={toggleFilter} />
       <h2 className={styles.auckland}>Auckland, New Zealand Homes for Rent</h2>
       <AucklandMap properties={properties} />
       <div className={styles.propertyContainer}>
@@ -71,6 +75,14 @@ export default function ListedProperties() {
           )
         )}
       </div>
+      {isFilterVisible && (
+        <Filter
+          onClose={() => setIsFilterVisible(false)}
+          onSearch={() => {
+            setIsFilterVisible(false);
+          }}
+        />
+      )}
     </div>
   );
 }

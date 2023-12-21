@@ -2,12 +2,16 @@
 import React from "react";
 import styles from "./Searchbar.module.css";
 
-export default function Searchbar({ className }) {
+export default function Searchbar({ className, onFilterClick }) {
   const isMobile = window.innerWidth <= 390;
 
   return (
     <div className={`${styles.container} ${className}`}>
-      <button className={styles.filterButton}>
+      <button
+        className={styles.filterButton}
+        onClick={onFilterClick}
+        title="Click to open filters"
+      >
         <span>
           <img
             className={styles.filterIcon}
@@ -16,7 +20,13 @@ export default function Searchbar({ className }) {
           />
         </span>
       </button>
-      <button className={styles.textButton}>Filters</button>
+      <button
+        className={styles.textButton}
+        onClick={onFilterClick}
+        title="Click to open filters"
+      >
+        Filters
+      </button>
 
       {isMobile ? (
         <button
@@ -25,7 +35,9 @@ export default function Searchbar({ className }) {
           <img src="/images/Search.png" alt="Search" />
         </button>
       ) : (
-        <button className={styles.searchButton}>Search</button>
+        <button className={styles.searchButton} title="Click to search">
+          Search
+        </button>
       )}
     </div>
   );

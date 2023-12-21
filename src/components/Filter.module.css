@@ -1,0 +1,114 @@
+.board {
+  border: 1px solid black;
+  width: 800px;
+  text-align: center;
+  background-color: white;
+}
+
+.line {
+  border-top: 1px solid black;
+  width: 90%;
+  margin: 0 auto; /* Center the line within the board */
+}
+
+.propertyType {
+  text-align: left; /* Align text to the left within the propertyType div */
+  margin-left: 50px;
+}
+
+.checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly; /* Equal horizontal spacing between items */
+}
+
+.singleCheckbox {
+  width: calc(33.33% - 10px); /* 33.33% width with 10px margin on both sides */
+  margin: 5px; /* Adjust margin for equal vertical spacing */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  margin-bottom: 20px;
+}
+
+/* Additional styling for the checkbox input and label */
+.singleCheckbox input {
+  margin-right: 5px; /* Add some space between the checkbox and label */
+}
+
+.singleCheckbox label {
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.price {
+  text-align: left;
+  width: 50%;
+}
+
+.priceInputContainer {
+  display: flex;
+}
+
+.bedroom {
+  width: 50%;
+  text-align: left;
+}
+
+.priceBedroom {
+  display: flex;
+  margin-left: 50px;
+  margin-bottom: 30px;
+}
+
+.bedroomInputContainer {
+  display: flex;
+}
+
+.separator {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.bathroomPet {
+  margin-left: 50px;
+  display: flex;
+}
+
+.petBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.singleCheckbox {
+  display: flex;
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.button {
+  margin-left: 50px;
+  margin-right: 50px;
+  border: none;
+  background-color: #e63335;
+  color: white;
+  width: 70px;
+  border-radius: 7px;
+  height: 25px;
+  font-weight: bold;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure the overlay is on top of other content */
+}
